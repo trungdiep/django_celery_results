@@ -166,13 +166,15 @@ class TaskResultManager(ResultManager):
             'worker': worker
         }
         
-        obj, created = self.using(using).get_or_create(task_id=task_id)
+        obj, created = self.using(using).get_or_create(task_id=task_id,
+                                                       defaults=fields)
+        print(fields)                                                    
         if not created:
             for k, v in fields.items():
                 setattr(obj, k, v)
             obj.save(using=using)
         return obj
-
+    
 
 class GroupResultManager(ResultManager):
     """Manager for :class:`celery.models.GroupResult` models."""
