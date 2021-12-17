@@ -166,12 +166,7 @@ class TaskResultManager(ResultManager):
             'worker': worker
         }
         
-        t = self.using(using).get_or_create(task_id=task_id,
-                                                       defaults=fields).query
-        print(t)                                        
-        print(using)
-        obj, created = self.using(using).get_or_create(task_id=task_id,
-                                                       defaults=fields)
+        obj, created = self.using(using).get_or_create(task_id=task_id)
         if not created:
             for k, v in fields.items():
                 setattr(obj, k, v)
